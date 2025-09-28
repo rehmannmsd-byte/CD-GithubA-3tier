@@ -73,14 +73,14 @@ jobs:
                   echo "updating image tag"
                   
                   if [[ "$chart" == "fdn-applications/fdn-user-profile-app" ]]; then
-                    echo "PARAM=initContainers.image.tag" >> $GITHUB_ENV
+                    export PARAM="initContainers.image.tag"
                   elif [[ "$chart" == "fdn-applications/fdn-user-profile-svc" ]]; then
-                    echo "PARAM=keycloakMetadata.image.tag" >> $GITHUB_ENV
+                    export PARAM="keycloakMetadata.image.tag"
                   else
                     echo "❌ Unknown chart: $chart"
                     continue
                   fi
-                  echo "NEW_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV
+                  export NEW_TAG="${{ inputs.image-tag }}"
                   yq -i "(.spec.source.helm.parameters[] | select(.name ==env(PARAM)) | .value) = env(NEW_TAG)" "$(basename "$FILE")"
                   
                   cat "$(basename "$FILE")"
