@@ -8,7 +8,7 @@ spec:
     namespace: test
     server: https://kubernetes.default.svc
   source:
-    repoURL: ghcr.io/srikanthhg   # OCI repo
+    repoURL: oci://ghcr.io/srikanthhg   # OCI repo
     chart: my-test-chart                # Chart name
     targetRevision: 25.03.75            # Version
   project: default
