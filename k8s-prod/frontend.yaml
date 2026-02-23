@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: adijaiswal/frontend:694535bf15cb7328bd153687abca4167a3fd083a
+          image: rehmannmsd-byte/frontend:694535bf15cb7328bd153687abca4167a3fd083a
           ports:
             - containerPort: 80
 ---
