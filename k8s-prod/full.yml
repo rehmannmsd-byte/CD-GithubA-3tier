@@ -5,7 +5,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: prod
-
 ---
 # =========================
 # MySQL Secret
@@ -18,7 +17,6 @@ metadata:
 type: Opaque
 stringData:
   MYSQL_ROOT_PASSWORD: Aditya
-
 ---
 # =========================
 # MySQL ConfigMap
@@ -30,7 +28,6 @@ metadata:
   namespace: prod
 data:
   MYSQL_DATABASE: crud_app
-
 ---
 # =========================
 # MySQL Init Script
@@ -53,7 +50,6 @@ data:
       is_active TINYINT(1) DEFAULT 1,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
-
 ---
 # =========================
 # MySQL Headless Service
@@ -70,7 +66,6 @@ spec:
   ports:
     - port: 3306
       targetPort: 3306
-
 ---
 # =========================
 # MySQL StatefulSet
@@ -126,7 +121,6 @@ spec:
         resources:
           requests:
             storage: 5Gi
-
 ---
 # =========================
 # Backend Deployment
@@ -167,7 +161,6 @@ spec:
                 configMapKeyRef:
                   name: mysql-config
                   key: MYSQL_DATABASE
-
 ---
 # =========================
 # Backend Service (Internal)
@@ -184,7 +177,6 @@ spec:
     - port: 5000
       targetPort: 5000
   type: ClusterIP
-
 ---
 # =========================
 # Frontend Deployment
@@ -210,7 +202,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
-
 ---
 # =========================
 # Frontend Service (Public)
