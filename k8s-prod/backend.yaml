@@ -7,7 +7,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 3
+  replicas: 2   # Reduced for cost efficiency
   selector:
     matchLabels:
       app: backend
@@ -18,12 +18,20 @@ spec:
     spec:
       containers:
         - name: backend
-          image: rehmannmsd-byte/backend:694535bf15cb7328bd153687abca4167a3fd083a
+          image: wizardreo/backend:694535bf15cb7328bd153687abca4167a3fd083a
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
           env:
             - name: DB_HOST
-              value: mysql
+              value: mysql-svc
             - name: DB_USER
               value: root
             - name: DB_PASSWORD
