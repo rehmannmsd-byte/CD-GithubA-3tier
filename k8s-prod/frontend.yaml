@@ -7,7 +7,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: frontend
@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: rehmannmsd-byte/frontend:694535bf15cb7328bd153687abca4167a3fd083a
+          image: wizardreo/frontend:694535bf15cb7328bd153687abca4167a3fd083a
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
@@ -27,10 +28,12 @@ kind: Service
 metadata:
   name: frontend-svc
   namespace: prod
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "classic"
 spec:
   selector:
     app: frontend
   ports:
     - port: 80
       targetPort: 80
-  type: ClusterIP
+  type: LoadBalancer
